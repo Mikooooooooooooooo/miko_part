@@ -1,75 +1,77 @@
 <template>
     <div class="confirm">
       <div class="container">
-        <div class="images">
-          <div>
-            <img src="../../assets/icons/composition.jpg" alt="">
-          </div>
-          <div>
-            <img src="../../assets/icons/code.png" alt="">
-          </div>
-        </div>
-        <div class="main">
-          <div class="header">
+        <div class="header">
             <div class="header_content">
-              <img class="header_icon" src="../../assets/icons/moon.svg" />
-              <div class="title">
+            <img class="header_icon" src="../../assets/icons/moon.svg" />
+            <div class="title">
                 Adal AI
-              </div>
             </div>
-          </div>
-          <div class="list">
-            <div class="list_header">
-              <div class="list_title">
-               Quramy
-              </div>
             </div>
-            <div class="element_container">
-              <div v-if="!isEdit" class="element" :key="element.id" v-for="element in list">
-                <div class="element_name" >
-                  {{ element.name }}
+        </div>
+        <div class="wrapper">
+            <div class="images">
+                <div>
+                    <img src="../../assets/icons/composition.jpg" alt="">
                 </div>
-              </div>
-              <div v-else>
-                <transition-group name="slide">
-                    <div v-for="element in list" :key="element.id" class="element_changer">
-                        <input  type="text" class="element" style="outline:none ; border:0 ; font-size:16px ; border-bottom: 2px solid #FF7275;"  v-model="element.name"/>
-                        <img src="../icons/cross.svg" @click="removeElement(element.id)" style="width:20px" class="remove_img" alt="">
+                <div>
+                    <img src="../../assets/icons/code.png" alt="">
+                </div>
+                </div>
+                <div class="main">
+                <div class="list">
+                    <div class="list_header">
+                    <div class="list_title">
+                    Quramy
                     </div>
-                </transition-group>
-                <div class="element" style="display: flex; justify-content: center; color:#11A575; border: 2px solid #11A575 ; cursor:pointer ;" @click="addNewElement">
-                    Jan'a element qosu
+                    </div>
+                    <div class="element_container">
+                    <div v-if="!isEdit" class="element" :key="element.id" v-for="element in list">
+                        <div class="element_name" >
+                        {{ element.name }}
+                        </div>
+                    </div>
+                    <div v-else>
+                        <transition-group name="slide">
+                            <div v-for="element in list" :key="element.id" class="element_changer">
+                                <input  type="text" class="element" style="outline:none ; border:0 ; font-size:16px ; border-bottom: 2px solid #FF7275;"  v-model="element.name"/>
+                                <img src="../icons/cross.svg" @click="removeElement(element.id)" style="width:20px" class="remove_img" alt="">
+                            </div>
+                        </transition-group>
+                        <div class="element" style="display: flex; justify-content: center; color:#11A575; border: 2px solid #11A575 ; cursor:pointer ;" @click="addNewElement">
+                            Jan'a element qosu
+                        </div>
+                    </div>
+                    </div>
+                    <div class="list_header">
+                    Cody
+                    </div>
+                    <div class="element_container">
+                    <div v-if="!isEdit" class="element">
+                        {{ code }}
+                    </div>
+                    <input v-else type="text" class="element" style="outline:none ; border:0 ; font-size:16px ; border-bottom: 2px solid #FF7275;" v-model="this.code"/>
+                    </div>
+                    <div class="list_button_wrapper">
+                    <div class="list_button" @click="this.isEdit = !this.isEdit" style="background:#FF7275">
+                        <div v-if="isEdit" style="background:#FF4A43 ;">
+                        Durys
+                        </div>
+                        <div v-else >
+                        O'zgertu
+                        </div>
+                    </div>
+                    <div class="list_button" @click="toConfirm" style="background:#11A575">
+                        Rastau
+                    </div>
+                    <transition name="fade">
+                        <div class="list_alert" v-if="isAlert">
+                            {{ alertText }}
+                        </div>
+                    </transition>
+                    </div>
                 </div>
-              </div>
             </div>
-            <div class="list_header">
-              Cody
-            </div>
-            <div class="element_container">
-              <div v-if="!isEdit" class="element">
-                {{ code }}
-              </div>
-              <input v-else type="text" class="element" style="outline:none ; border:0 ; font-size:16px ; border-bottom: 2px solid #FF7275;" v-model="this.code"/>
-            </div>
-            <div class="list_button_wrapper">
-              <div class="list_button" @click="this.isEdit = !this.isEdit" style="background:#FF7275">
-                <div v-if="isEdit" style="background:#FF4A43 ;">
-                  Durys
-                </div>
-                <div v-else >
-                  O'zgertu
-                </div>
-              </div>
-              <div class="list_button" @click="toConfirm" style="background:#11A575">
-                Rastau
-              </div>
-              <transition name="fade">
-                <div class="list_alert" v-if="isAlert">
-                    {{ alertText }}
-                </div>
-              </transition>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -97,13 +99,13 @@
     height: 100vh ; 
     background: #FAFAFC ; 
     margin: 0 auto ; 
+  }
+  .wrapper{
+    width: fit-content;
+    margin: 0 auto ; 
     display: flex ; 
     align-items: center ; 
-    justify-content: space-between ;
-  }
-  .images{
-    width: 400px ; 
-    margin: 0 auto ; 
+    gap: 50px ; 
   }
   .images div:first-of-type{
     margin-bottom: 50px ; 
@@ -117,26 +119,16 @@
     height: 300px ; 
   }
   .header{
-    padding-top: 5vh ; 
     display: flex ; 
-    width: 600px ; 
     margin: 0 auto ; 
     align-items: center ; 
-    justify-content: space-between;
-    position: relative ; 
-    margin-bottom: 5vh ; 
-  }
-  .header_content{
-    position: absolute ; 
-    right: 30px ; 
+    justify-content: right;
+    padding-top: 2vh ; 
+    padding-right: 100px ; 
   }
   .title{
     color: #282C34 ;
     font-weight: 600 ; 
-  }
-  .main{
-    width: 750px ; 
-    height: 90vh ; 
   }
   .main img {
     width: 40px ; 
@@ -154,7 +146,7 @@
   }
   .list_header{
     display: flex ; 
-    padding-left: 40px ; 
+    /* padding-left: 40px ;  */
     font-size: 24px; 
     font-weight: 600 ; 
     padding-bottom: 10px ; 
@@ -223,7 +215,7 @@
   .remove_img{
     cursor: pointer ; 
     position: absolute ; 
-    right: 90px ; 
+    right: 10px ; 
     top: 17.5px ; 
   }
   .fade-enter-from{
@@ -240,6 +232,88 @@
   .slide-enter-from,
   .slide-leave-to {
     opacity: 0;
+  }
+  @media screen and (max-width: 1450px){
+    .images img{
+        width: 250px ; 
+        height: 250px ; 
+    }
+  }
+  @media screen and (max-width: 1200px){
+    .container{
+        width: 1000px ; 
+    }
+    .images{
+        width: fit-content ; 
+        margin: 0 ; 
+    }
+    .images img{
+        width: 200px ; 
+        height: 200px ; 
+    }
+    .element_container{
+        max-height: 45vh ; 
+    }
+  }
+  @media screen and (max-width: 1000px){
+    .container{
+        width: 100% ; 
+    }
+    .wrapper{
+        margin: 0 auto ; 
+    }
+    .header{
+        padding-right: 100px ; 
+    }
+    .element_container{
+        max-height: 40vh ; 
+    }
+    .images img{
+        width: 200px ; 
+        height: 200px ; 
+    }
+    .element , 
+    .list_button_wrapper{
+        width: 450px ;
+    }
+  }
+  @media screen and (max-width: 800px){
+    .wrapper{
+        display: block ;
+    }
+    .header{
+        justify-content: center;
+        padding: 0 ; 
+        margin-bottom: 3vh ; 
+    }
+    .images{
+        width: 100% ;   
+        display: flex ; 
+        justify-content: space-between;
+    }
+    .images div {
+        width: fit-content ; 
+    }
+    .images img{
+        width: 200px ; 
+        height: 200px ;
+    }
+  }
+  @media screen and (max-width: 500px){
+    .wrapper {
+        width: calc(100% - 50px)
+    } 
+    .images , 
+    .element , 
+    .list_button_wrapper{
+        width: 100% ; 
+    }
+    .images img{
+        width: 150px ; 
+    }
+    .images {
+        
+    }
   }
   </style>
   

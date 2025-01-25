@@ -1,52 +1,56 @@
 <template>
     <div class="output">
       <div class="container">
-        <div class="images">
-          <div>
-            <img src="../../assets/icons/composition.jpg" alt="">
-          </div>
-          <div>
-            <img src="../../assets/icons/code.png" alt="">
-          </div>
-        </div>
-        <div class="main">
-          <div class="header">
+        <div class="header">
             <div class="header_content">
-              <img class="header_icon" src="../../assets/icons/moon.svg" />
-              <div class="title">
+            <img class="header_icon" src="../../assets/icons/moon.svg" />
+            <div class="title">
                 Adal AI
-              </div>
             </div>
-          </div>
-          <div class="list">
-            <div class="list_header">
-              Quramy
             </div>
-            <div class="element" :key="element.id" v-for="element in list">
-              <div class="element_name" >
-                {{ element.name }}
-              </div>
-              <div class="element_output" :style="{background: colors[element.output].background , color: colors[element.output].color}">
-                {{ element.output }}
-              </div>
+        </div>
+        <div class="wrapper">
+            <div class="images">
+            <div>
+                <img src="../../assets/icons/composition.jpg" alt="">
             </div>
-            <div class="answer">
-              <div class="answer_title">
-                {{ output }}
-              </div>
-              <div class="count">
-                <img v-if="ok" src="../../assets/icons/choose.svg" alt=""/>
-                <img v-else style="width:25px;height:25px;" src="../../assets/icons/cross.svg" />
-              </div>
+            <div>
+                <img src="../../assets/icons/code.png" alt="">
             </div>
-          </div>
+            </div>
+            <div class="main">
+                <div class="list">
+                    <div class="list_header">
+                    Quramy
+                    </div>
+                    <div class="element_container">
+                        <div class="element" :key="element.id" v-for="element in list">
+                        <div class="element_name" >
+                            {{ element.name }}
+                        </div>
+                        <div class="element_output" :style="{background: colors[element.output].background , color: colors[element.output].color}">
+                            {{ element.output }}
+                        </div>
+                    </div>
+                    </div>
+                    <div class="answer">
+                        <div class="answer_title">
+                            {{ output }}
+                        </div>
+                        <div class="count">
+                            <img v-if="ok" src="../../assets/icons/choose.svg" alt=""/>
+                            <img v-else style="width:25px;height:25px;" src="../../assets/icons/cross.svg" />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
       </div>
     </div>
   </template>
   
   <style scoped>
-  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
   /* #11A575 */
   *{
     padding: 0 ; 
@@ -54,22 +58,18 @@
     box-sizing: border-box;
     font-family: "Open Sans", serif;
   }
-  .output{
-    background: white ; 
-    height: 100vh ; 
-  }
   .container{
     width: 1200px ; 
     height: 100vh ; 
     background: #FAFAFC ; 
     margin: 0 auto ; 
+  }
+  .wrapper{
+    width: fit-content;
+    margin: 0 auto ; 
     display: flex ; 
     align-items: center ; 
-    justify-content: space-between ;
-  }
-  .images{
-    width: 400px ; 
-    margin: 0 auto ; 
+    gap: 50px ; 
   }
   .images div:first-of-type{
     margin-bottom: 50px ; 
@@ -83,26 +83,16 @@
     height: 300px ; 
   }
   .header{
-    padding-top: 5vh ; 
     display: flex ; 
-    width: 600px ; 
     margin: 0 auto ; 
     align-items: center ; 
-    justify-content: space-between;
-    position: relative ; 
-    margin-bottom: 5vh ; 
-  }
-  .header_content{
-    position: absolute ; 
-    right: 30px ; 
+    justify-content: right;
+    padding-top: 2vh ; 
+    padding-right: 100px ; 
   }
   .title{
     color: #282C34 ;
     font-weight: 600 ; 
-  }
-  .main{
-    width: 750px ; 
-    height: 90vh ; 
   }
   .main img {
     width: 40px ; 
@@ -119,16 +109,62 @@
     margin-top: 2vh ; 
   }
   .list_header{
-    padding-left: 40px ; 
+    display: flex ; 
+    /* padding-left: 40px ;  */
     font-size: 24px; 
     font-weight: 600 ; 
     padding-bottom: 10px ; 
+  }
+  .list_button_wrapper{
+    position: relative ; 
+    width: 600px ; 
+    gap: 10px ; 
+    margin: 0 auto ;
+    margin-top: 10px ; 
+    display: flex ; 
+    justify-content: right;
+  }
+  .list_button{
+    width: 90px ; 
+    height: 42px ; 
+    display: flex ; 
+    justify-content: center ; 
+    align-items: center ; 
+    font-size: 16px ;
+    border-radius: 10px ; 
+    color: white ; 
+    cursor: pointer ; 
+  }
+  .list_button div{
+    width: 90px ; 
+    height: 42px ; 
+    display: flex ; 
+    justify-content: center ; 
+    align-items: center ; 
+    border-radius: 10px ; 
+  }
+  .list_alert{
+    position: absolute ; 
+    top: 60px ; 
+    padding: 10px ; 
+    background: #FF1910 ;
+    color: white ; 
+    opacity: .7 ; 
+  }
+  .element_container{
+    max-height: 50vh ; 
+    overflow-y: scroll ; 
+    margin-bottom: 2vh ; 
+    padding-bottom: 20px ; 
+  }
+  .element_container::-webkit-scrollbar {
+    display: none; 
   }
   .element{
     width: 600px ; 
     margin: 0 auto ;
     margin-top: 10px ; 
-    padding: 10px ; 
+    padding: 15px ; 
     background: white ; 
     display: flex; 
     align-items: center ; 
@@ -136,22 +172,130 @@
     justify-content: space-between;
     border-radius: 5px; 
   }
-  .element_output{
-    width: 90px ; 
-    height: 35px ; 
+  .element_changer{
     display: flex ; 
-    align-items: center ; 
-    justify-content: center ; 
+    position: relative ; 
+  }
+  .element_output{
+    display: flex ; 
     border-radius: 10px ; 
+    justify-content: center; 
+    align-items: center ; 
+    width: 90px ; 
+    height: 30px ; 
+  }
+  .remove_img{
+    cursor: pointer ; 
+    position: absolute ; 
+    right: 10px ; 
+    top: 17.5px ; 
   }
   .answer{
     display: flex ; 
-    font-size: 20px ; 
     align-items: center ; 
-    font-weight: 600 ; 
-    margin-top: 50px ;
-    padding-left: 200px ; 
+    justify-content: center ;
   }
+  .answer_title{
+    font-size: 18px ; 
+    font-weight: 500 ; 
+  }
+  .fade-enter-from{
+    transform: translateX(30px);
+    opacity: 0;
+  }
+  .fade-enter-active{
+    transition: all ease .4s ; 
+  }
+  .slide-enter-active,
+  .slide-leave-active {
+    transition: all 0.4s ease;
+  }
+  .slide-enter-from,
+  .slide-leave-to {
+    opacity: 0;
+  }
+  @media screen and (max-width: 1450px){
+    .images img{
+        width: 250px ; 
+        height: 250px ; 
+    }
+  }
+  @media screen and (max-width: 1200px){
+    .container{
+        width: 1000px ; 
+    }
+    .images{
+        width: fit-content ; 
+        margin: 0 ; 
+    }
+    .images img{
+        width: 200px ; 
+        height: 200px ; 
+    }
+    .element_container{
+        max-height: 55vh ; 
+    }
+  }
+  @media screen and (max-width: 1000px){
+    .container{
+        width: 100% ; 
+    }
+    .wrapper{
+        margin: 0 auto ; 
+    }
+    .header{
+        padding-right: 100px ; 
+    }
+    .element_container{
+        max-height: 50vh ; 
+    }
+    .images img{
+        width: 200px ; 
+        height: 200px ; 
+    }
+    .element , 
+    .list_button_wrapper{
+        width: 450px ;
+    }
+  }
+  @media screen and (max-width: 800px){
+    .wrapper{
+        display: block ;
+    }
+    .header{
+        justify-content: center;
+        padding: 0 ; 
+        margin-bottom: 3vh ; 
+    }
+    .images{
+        width: 100% ;   
+        display: flex ; 
+        justify-content: space-between;
+    }
+    .images div {
+        width: fit-content ; 
+    }
+    .images img{
+        width: 200px ; 
+        height: 200px ;
+    }
+  }
+  @media screen and (max-width: 500px){
+    .wrapper {
+        width: calc(100% - 50px)
+    } 
+    .images , 
+    .element , 
+    .list_button_wrapper{
+        width: 100% ; 
+    }
+    .images img{
+        width: 150px ; 
+    }
+    .images {
+        
+    }
+  }  
   
   </style>
   
